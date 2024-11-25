@@ -1,4 +1,7 @@
-
+/*
+    O objectivo deste controlador é testar os métodos de resposta HTTP
+    e ver o que acontece quando falhamos em alguma coisa
+*/
 
 using API.Data;
 using API.Entities;
@@ -40,6 +43,5 @@ public class BuggyController (DataContext context) : BaseApiController
     public ActionResult<string> GetBadRequest()
     {
         return BadRequest("This was not a good request");
-    }
-    
+    }    
 }
