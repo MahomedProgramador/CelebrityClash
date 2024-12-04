@@ -36,12 +36,12 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
         .SingleOrDefaultAsync(x => x.UserName == username);        
     }
 
-    public async Task<IEnumerable<AppUser>> GetUsersAsync()
-    {
-       return await context.Users
-            .Include(x => x.Photos)
-            .ToListAsync();
-    }
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        {
+        return await context.Users
+                .Include(x => x.Photos)
+                .ToListAsync();
+        }
 
     public async Task<bool> SaveAllAsync()
     {

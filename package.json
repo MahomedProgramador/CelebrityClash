@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@angular/cdk": "^17.3.10",
-    "ng-gallery": "^11.0.0"
+    "@angular/cdk": "^17.3.10"
   }
 }
