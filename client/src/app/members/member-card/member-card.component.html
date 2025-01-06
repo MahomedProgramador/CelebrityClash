@@ -6,7 +6,7 @@
                 <button routerLink="/members/{{member().username}}" class="btn btn-primary"><i class="fa fa-user"></i></button>
             </li>
             <li class="list-inline-item">
-                <button class="btn btn-primary"><i class="fa fa-thumbs-down"></i></button>
+                <button (click)="toggleDislike()" class="btn btn-primary"><i class="fa fa-thumbs-down"></i></button>
             </li>
             <li class="list-inline-item">
                 <button class="btn btn-primary">
@@ -20,6 +20,9 @@
         <h6 class="card-title text-center mb-1">
             <i class="fa fa-user me-2"></i>
             {{member().knownAs}}, {{member().age}}
+             @if(hasDisliked()){
+                <i class="fa fa-thumbs-down" style="color: red"> </i>
+             }
         </h6>
         <p class="card-text text-muted text-center">{{member().city}}</p>
     </div>
