@@ -9,7 +9,10 @@
                 <button (click)="toggleDislike()" class="btn btn-primary"><i class="fa fa-thumbs-down"></i></button>
             </li>
             <li class="list-inline-item">
-                <button class="btn btn-primary">
+                <button 
+                    routerLink="/members/{{member().username}}"
+                    [queryParams]="{tab: 'Messages'}"
+                    class="btn btn-primary">
                     <i class="fa fa-bolt"></i>
                     <i class="fa fa-hand-envelope"></i>
                 </button>

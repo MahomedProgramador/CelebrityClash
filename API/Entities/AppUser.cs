@@ -22,4 +22,6 @@ public partial class AppUser
     public List<Photo> Photos { get; set; } = []; // isto é uma navigation property o EF vai tratar das relações
     public List<UserDislike> DislikedByUsers { get; set; } = []; 
     public List<UserDislike> DislikedUsers { get; set; } = [];
+    public List<Message> MessagesSent { get; set; } = [];
+    public List<Message> MessagesReceived { get; set; } = [];
 }
