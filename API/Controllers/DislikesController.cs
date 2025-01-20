@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-public class DislikesController(IDislikesRepository dislikesRepository) : BaseApiController
+public class DislikesController(IUnitOfWork unitOfWork) : BaseApiController
 {
     [HttpPost("{targetUserId:int}")]
     public async Task<ActionResult> ToggleDislike(int targetUserId)
@@ -17,7 +16,7 @@ public class DislikesController(IDislikesRepository dislikesRepository) : BaseAp
         
         if (sourceUserId == targetUserId) return BadRequest("You cannot dislike yourself");
 
-        var existingDislike = await dislikesRepository.GetUserDislike(sourceUserId, targetUserId);
+        var existingDislike = await unitOfWork.DislikesRepository.GetUserDislike(sourceUserId, targetUserId);
 
         if (existingDislike == null)
         {
@@ -27,28 +26,28 @@ public class DislikesController(IDislikesRepository dislikesRepository) : BaseAp
                 TargetUserId = targetUserId
             };
 
-            dislikesRepository.AddDislike(dislike);
+            unitOfWork.DislikesRepository.AddDislike(dislike);
         }
         else
         {
-            dislikesRepository.DeleteDislike(existingDislike);
+            unitOfWork.DislikesRepository.DeleteDislike(existingDislike);
         }
 
-        if (await dislikesRepository.SaveChanges()) return Ok();
+        if (await unitOfWork.Complete()) return Ok();
 
         return BadRequest("Failed to update the dislike");
     }
     [HttpGet("list")]
     public async Task<ActionResult<IEnumerable<int>>> GetCurrentUserDislikeIds()
     {
-        return Ok(await dislikesRepository.GetCurrentUserDislikeIds(User.GetUserId()));
+        return Ok(await unitOfWork.DislikesRepository.GetCurrentUserDislikeIds(User.GetUserId()));
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUserDislikes([FromQuery]DislikesParams dislikesParams)
     {
         dislikesParams.UserId = User.GetUserId();
-        var users = await dislikesRepository.GetUserDislikes(dislikesParams);
+        var users = await unitOfWork.DislikesRepository.GetUserDislikes(dislikesParams);
 
         Response.AddPaginationHeader(users);
 

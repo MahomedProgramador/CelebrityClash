@@ -67,9 +67,4 @@ public class DislikesRepository(DataContext context, IMapper mapper) : IDislikes
         
         return await PagedList<MemberDto>.CreateAsync(query, dislikesParams.PageNumber, dislikesParams.PageSize);
     }
-
-    public async Task<bool> SaveChanges()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
 }

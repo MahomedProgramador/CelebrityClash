@@ -1,4 +1,3 @@
-
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
@@ -12,5 +11,4 @@ public interface IDislikesRepository
     Task<IEnumerable<int>> GetCurrentUserDislikeIds(int currentUserId);
     void DeleteDislike(UserDislike dislike);
     void AddDislike(UserDislike dislike);
-    Task<bool> SaveChanges();
 }
