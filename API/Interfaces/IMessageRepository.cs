@@ -1,5 +1,3 @@
-
-
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
@@ -14,4 +12,9 @@ public interface IMessageRepository
     Task<PagedList<MessageDto>> GetMessagerForUser(MessageParams messageParams);
     Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername);
     Task<bool> SaveAllAsync();
+    void AddGroup(Group group);
+    void RemoveConnection(Connection connection);
+    Task<Connection?> GetConnection(string connectionId);
+    Task<Group?> GetMessageGroup(string groupName);
+    Task<Group?> GetGroupForConnection(string connectionId);
 }
