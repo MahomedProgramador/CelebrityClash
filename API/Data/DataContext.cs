@@ -10,7 +10,6 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
 {
     public DbSet<UserDislike> Dislikes { get; set; }
     public DbSet<Message> Messages { get; set; }
-
     public DbSet<Group> Groups { get; set; }
     public DbSet<Connection> Connections { get; set; }
     
@@ -44,7 +43,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
             .HasOne(s => s.TargetUser)
             .WithMany(l => l.DislikedByUsers)
             .HasForeignKey(s => s.TargetUserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         // As mensagens só apagam se ambos os users a apagarem
         builder.Entity<Message>()
